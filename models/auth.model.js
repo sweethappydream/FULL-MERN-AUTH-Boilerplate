@@ -1,5 +1,7 @@
 const mongoose = require('mongoose');
 const crypto = require('crypto');
+const { Schema } = require('mongoose');
+require('./Role');
 // user schema
 const userScheama = new mongoose.Schema(
   {
@@ -21,8 +23,8 @@ const userScheama = new mongoose.Schema(
     },
     salt: String,
     role: {
-      type: String,
-      default: 'subscriber'
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "Role"
     },
     resetPasswordLink: {
       data: String,
