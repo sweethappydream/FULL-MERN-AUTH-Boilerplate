@@ -4,7 +4,6 @@ const router = express.Router()
 // Load Controllers
 const {
     registerController,
-    activationController,
     signinController,
     forgotPasswordController,
     resetPasswordController,
@@ -27,7 +26,7 @@ router.post('/register',
 router.post('/login',
     validLogin, signinController)
 
-router.post('/activation', activationController)
+// router.post('/activation', activationController)
 
 // forgot reset password
 router.put('/forgotpassword', forgotPasswordValidator, forgotPasswordController);
