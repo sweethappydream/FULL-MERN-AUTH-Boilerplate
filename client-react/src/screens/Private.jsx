@@ -14,6 +14,7 @@ const Private = ({ history }) => {
   });
 
   useEffect(() => {
+    console.log(isAuth());
     loadProfile();
   }, []);
 
