@@ -4,6 +4,8 @@ import { ToastContainer, toast } from "react-toastify";
 import axios from "axios";
 import { authenticate, isAuth } from "../helpers/auth";
 import { Link, Redirect } from "react-router-dom";
+import authReducer from "../reducer/authReducer";
+import { useReducer } from "react";
 
 const Login = ({ history }) => {
   const [formData, setFormData] = useState({
@@ -11,17 +13,16 @@ const Login = ({ history }) => {
     password1: "",
     textChange: "Sign In",
   });
+  const [state, dispatch] = useReducer(authReducer, {
+    loggedin: false,
+    email: "",
+    token: "",
+    role: "",
+  });
+
   const { email, password1, textChange } = formData;
   const handleChange = (text) => (e) => {
     setFormData({ ...formData, [text]: e.target.value });
-  };
-
-  const informParent = (response) => {
-    authenticate(response, () => {
-      isAuth() && isAuth().role === "admin"
-        ? history.push("/admin")
-        : history.push("/private");
-    });
   };
 
   const handleSubmit = (e) => {
@@ -37,15 +38,27 @@ const Login = ({ history }) => {
         .then((res) => {
           authenticate(res, () => {
             console.log(res.data);
+            
             setFormData({
               ...formData,
               email: "",
               password1: "",
               textChange: "Submitted",
             });
-            isAuth() && isAuth().role === "admin"
+
+            isAuth() && isAuth().role.role === "admin"
               ? history.push("/admin")
               : history.push("/private");
+
+            dispatch({
+              type: "loggedIn",
+              payload: {
+                token: res.data.token,
+                email: res.data.user.email,
+                role: res.data.user.role.role,
+              }
+            });
+
             toast.success(`Hey ${res.data.user.name}, Welcome back!`);
           });
         })

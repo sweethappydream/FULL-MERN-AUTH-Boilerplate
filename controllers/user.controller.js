@@ -83,8 +83,8 @@ exports.updateRoleController = (req, res) => {
   // console.log('UPDATE USER - req.user', req.user, 'UPDATE DATA', req.body);
   const { role, _id } = req.body;
 
-  Role.findOne({ role: role }).exec((err, role) => {
-    if (err || !role) {
+  Role.findOne({ role: role }).exec((err, data) => {
+    if (err || !data) {
       return res.status(400).json({
         error: "Role not found",
       });
@@ -95,7 +95,7 @@ exports.updateRoleController = (req, res) => {
           error: "User not found",
         });
       }
-      user.role = role._id;
+      user.role = data._id;
       user.save((err, updatedUser) => {
         if (err) {
           console.log("USER UPDATE ERROR", err);
@@ -103,6 +103,7 @@ exports.updateRoleController = (req, res) => {
             error: "User update failed",
           });
         }
+        user.role = data;
         res.json(user)
       });
     });
