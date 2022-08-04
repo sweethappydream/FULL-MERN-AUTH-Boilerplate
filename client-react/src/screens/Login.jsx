@@ -84,7 +84,7 @@ const Login = ({ history }) => {
         <div className="lg:w-1/2 xl:w-5/12 p-6 sm:p-12">
           <div className="mt-12 flex flex-col items-center">
             <h1 className="text-2xl xl:text-3xl font-extrabold">
-              Sign In for Congar
+              Sign In
             </h1>
             <div className="w-full flex-1 mt-8 text-indigo-500">
               <div className="flex flex-col items-center">
@@ -128,21 +128,9 @@ const Login = ({ history }) => {
                   <i className="fas fa-sign-in-alt  w-6  -ml-2" />
                   <span className="ml-3">Sign In</span>
                 </button>
-                <Link
-                  to="/users/password/forget"
-                  className="no-underline hover:underline text-indigo-500 text-md text-right absolute right-0  mt-2"
-                >
-                  Forget password?
-                </Link>
               </form>
             </div>
           </div>
-        </div>
-        <div className="flex-1 bg-indigo-100 text-center hidden lg:flex">
-          <div
-            className="m-12 xl:m-16 w-full bg-contain bg-center bg-no-repeat"
-            style={{ backgroundImage: `url(${authSvg})` }}
-          ></div>
         </div>
       </div>
       ;
